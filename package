@@ -1,0 +1,14 @@
+#!/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+PROJECT=$(basename "$1")
+DIR=$(cd "$(dirname "$1")"; pwd)
+OUTPUT_FILE="$DIR/$PROJECT-package.tar.gz"
+echo "$1 ==> $OUTPUT_FILE"
+tar -zcf $OUTPUT_FILE \
+--exclude="./.codekit*" \
+--exclude="./.git" \
+--exclude="./.gitignore" \
+--exclude="./caches" \
+$1
+exit 0
