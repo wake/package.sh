@@ -4,11 +4,23 @@ export PATH
 PROJECT=$(basename "$1")
 DIR=$(cd "$(dirname "$1")"; pwd)
 OUTPUT_FILE="$DIR/$PROJECT-package.tar.gz"
-echo "$1 ==> $OUTPUT_FILE"
+
+#echo $1
+#echo $PROJECT
+#echo $DIR
+#echo $OUTPUT_FILE
+
+echo "Package \`$1\` to \`$OUTPUT_FILE\`"
 tar -zcf $OUTPUT_FILE \
+--exclude=".DS_Store" \
 --exclude="./.codekit*" \
 --exclude="./.git" \
 --exclude="./.gitignore" \
 --exclude="./caches" \
-$1
+--exclude="./composer.json" \
+--exclude="./composer.lock" \
+--exclude="./config.codekit" \
+--exclude="./data.cache" \
+-C $DIR \
+$PROJECT
 exit 0
